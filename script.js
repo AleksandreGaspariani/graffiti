@@ -14,9 +14,10 @@ let size = 120;
 
 function insertImages() {
     $('#images').empty();
+
     imageNames.forEach(image => {
         $('#images').append(`
-                <img src="common/`+image+`" alt="" width="`+size+`px" height="auto" class='m-1 graffiti-image' onclick="chooseGraffiti('`+ image +`')">
+            <img src="common/`+image+`" alt="" width="`+size+`px" height="auto" class='m-1 graffiti-image' onclick="chooseGraffiti('`+ image +`')">
         `)
     });
 }
