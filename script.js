@@ -11,19 +11,50 @@ let imageNames = [
 ]
 
 let size = 120;
+let commonGraffitiSize = 2;
+let factionGraffitiSize = [];
+
+//Max graffiti per faction
+factionGraffitiSize[0] = 0; //None
+factionGraffitiSize[1] = 0; //LSSD
+factionGraffitiSize[2] = 0; //LSFD
+factionGraffitiSize[3] = 0; //GOV
+factionGraffitiSize[4] = 0; //NEWS
+factionGraffitiSize[5] = 2; //OFFICIAL_TEST
 
 function insertImages() {
     $('#images').empty();
 
-    imageNames.forEach(image => {
+    for(let i = 1; i < commonGraffitiSize + 1; i++) {
         $('#images').append(`
-            <img src="common/`+image+`" alt="" width="`+size+`px" height="auto" class='m-1 graffiti-image' onclick="chooseGraffiti('`+ image +`')">
-        `)
-    });
+            <img src="common/str_dcl_${i}.png" alt="" width="`+size+`px" height="auto" class='m-1 graffiti-image' onclick="chooseGraffiti('str_dcl_${i}')">
+        `);
+    }
+
+    //imageNames.forEach(image => {
+    //    $('#images').append(`
+    //        <img src="common/`+image+`" alt="" width="`+size+`px" height="auto" class='m-1 graffiti-image' onclick="chooseGraffiti('`+ image +`')">
+    //    `)
+    //});
+}
+
+function insertFactionImage(fid) {
+    $('#images').empty();
+    
+    for(let i = 1; i < factionGraffitiSize[fid] + 1; i++) {
+        $('#images').append(`
+            <img src="faction/${fid}/f_dcl_${i}.png" alt="" width="`+size+`px" height="auto" class='m-1 graffiti-image' onclick="chooseGraffiti('f_dcl_${i}')">
+        `);
+    }
 }
 
 function chooseGraffiti(imageName){
     console.log(imageName);
+    mp.trigger('selectedImage', imageName);
+}
+
+function exitGraffiti() {
+    mp.trigger('exitGraffiti');
 }
 
 function increaseSize(){ size += 10; insertImages()}
